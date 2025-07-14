@@ -7,7 +7,7 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata = { title: "Next.js + Y-Sweet" };
+export const metadata = { title: "coderpad clone" };
 
 export default function RootLayout({
   children,

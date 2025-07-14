@@ -222,16 +222,13 @@ export function CodeEditor({
               }`}
             >
               {isRunning ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent animate-spin"></div>
-                </>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent animate-spin"></div>
               ) : (
-                <>
-                  <span>▶</span>
-                </>
+                <span>▶</span>
               )}
             </button>
             <button
+              type="button" // Added type="button"
               onClick={toggleOutputCollapse}
               className="px-4 py-2 text-sm bg-black hover:bg-gray-800 text-white border border-white transition-colors"
             >
