@@ -2,7 +2,16 @@
 
 import React, { useMemo } from "react";
 import { useYDoc, useAwareness } from "@y-sweet/react";
-import { ExecutionResult } from "@/lib/codesandbox";
+
+interface ExecutionResult {
+  id: string;
+  status: string;
+  language: string;
+  userId?: string;
+  timestamp: number;
+  output?: string;
+  error?: string;
+}
 
 interface ExecutionOutputProps {
   isRunning?: boolean;
@@ -32,10 +41,10 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
 
   const formatOutput = (output: string) => {
     if (!output) return null;
-    
-    return output.split('\n').map((line, index) => (
+
+    return output.split("\n").map((line, index) => (
       <div key={index} className="font-mono text-sm">
-        {line || '\u00A0'}
+        {line || "\u00A0"}
       </div>
     ));
   };
@@ -45,25 +54,33 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
   };
 
   const getUserColor = (userId?: string) => {
-    if (!userId) return '#6b7280'; // gray-500
-    
+    if (!userId) return "#6b7280"; // gray-500
+
     if (!userColors.has(userId)) {
-      const colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899'];
+      const colors = [
+        "#ef4444",
+        "#f97316",
+        "#eab308",
+        "#22c55e",
+        "#3b82f6",
+        "#8b5cf6",
+        "#ec4899",
+      ];
       const color = colors[userId.length % colors.length];
       userColors.set(userId, color);
     }
-    
+
     return userColors.get(userId)!;
   };
 
   const getUserIndicator = (userId?: string) => {
     if (!userId) return null;
-    
+
     const color = getUserColor(userId);
     const initial = userId.charAt(0).toUpperCase();
-    
+
     return (
-      <div 
+      <div
         className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-medium"
         style={{ backgroundColor: color }}
         title={`Executed by user ${userId}`}
@@ -94,7 +111,7 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
             {results.length > 0 && (
               <>
                 <span className="text-xs text-gray-400">
-                  {results.length} execution{results.length !== 1 ? 's' : ''}
+                  {results.length} execution{results.length !== 1 ? "s" : ""}
                 </span>
                 <button
                   onClick={handleClearOutput}
@@ -121,22 +138,22 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
               <div
                 key={result.id}
                 className={`border-l-4 pl-4 py-2 ${
-                  result.status === 'completed'
-                    ? 'border-green-400'
-                    : result.status === 'failed'
-                    ? 'border-red-400'
-                    : 'border-yellow-400'
+                  result.status === "completed"
+                    ? "border-green-400"
+                    : result.status === "failed"
+                      ? "border-red-400"
+                      : "border-yellow-400"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span
                       className={`w-2 h-2 rounded-full ${
-                        result.status === 'completed'
-                          ? 'bg-green-400'
-                          : result.status === 'failed'
-                          ? 'bg-red-400'
-                          : 'bg-yellow-400'
+                        result.status === "completed"
+                          ? "bg-green-400"
+                          : result.status === "failed"
+                            ? "bg-red-400"
+                            : "bg-yellow-400"
                       }`}
                     ></span>
                     <span className="text-sm font-medium capitalize">
@@ -178,11 +195,16 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
       {latestResult && (
         <div className="border-t border-gray-700 p-2">
           <div className="text-xs text-gray-400">
-            Last execution: {formatTimestamp(latestResult.timestamp)} • 
-            Status: <span className={`${
-              latestResult.status === 'completed' ? 'text-green-400' :
-              latestResult.status === 'failed' ? 'text-red-400' : 'text-yellow-400'
-            }`}>
+            Last execution: {formatTimestamp(latestResult.timestamp)} • Status:{" "}
+            <span
+              className={`${
+                latestResult.status === "completed"
+                  ? "text-green-400"
+                  : latestResult.status === "failed"
+                    ? "text-red-400"
+                    : "text-yellow-400"
+              }`}
+            >
               {latestResult.status}
             </span>
           </div>
