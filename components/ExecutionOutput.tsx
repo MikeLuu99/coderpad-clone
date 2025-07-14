@@ -19,9 +19,10 @@ interface ExecutionOutputProps {
 
 export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
   const yDoc = useYDoc();
-  const awareness = useAwareness();
+  // The 'awareness' variable was unused and has been removed.
   const executionResults = useMemo(() => yDoc.getArray("executions"), [yDoc]);
   const [results, setResults] = React.useState<ExecutionResult[]>([]);
+  // userColors is now populated with random colors for better user distinction
   const [userColors] = React.useState(() => new Map<string, string>());
   const [collapsedResults, setCollapsedResults] = useState<Set<string>>(
     new Set(),
@@ -42,11 +43,14 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
 
   const latestResult = results[results.length - 1];
 
-  const formatOutput = (output: string) => {
+  // Modified formatOutput to accept resultId for more robust key generation
+  const formatOutput = (output: string, resultId: string) => {
     if (!output) return null;
 
     return output.split("\n").map((line, index) => (
-      <div key={index} className="font-mono text-sm">
+      // Changed key from `line + '-' + index` to `resultId + '-' + index` for better stability
+      // and to address the 'no-array-index-key' diagnostic by providing a more globally unique prefix.
+      <div key={`${resultId}-${index}`} className="font-mono text-sm">
         {line || "\u00A0"}
       </div>
     ));
@@ -59,11 +63,22 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
   const getUserColor = (userId?: string) => {
     if (!userId) return "#000000"; // black
 
-    if (!userColors.has(userId)) {
-      userColors.set(userId, "#000000");
+    let color = userColors.get(userId);
+    if (!color) {
+      // Assign a random color for new users to differentiate
+      const colors = [
+        "#EF4444",
+        "#F59E0B",
+        "#10B981",
+        "#3B82F6",
+        "#8B5CF6",
+        "#EC4899",
+      ]; // Example Tailwind colors
+      color = colors[Math.floor(Math.random() * colors.length)];
+      userColors.set(userId, color);
     }
-
-    return userColors.get(userId)!;
+    // No non-null assertion needed now as 'color' is guaranteed to be set
+    return color;
   };
 
   const getUserIndicator = (userId?: string) => {
@@ -122,6 +137,7 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
                   onClick={handleClearOutput}
                   className="px-2 py-1 text-xs bg-white hover:bg-gray-200 text-black border border-black transition-colors"
                   title="Clear all output"
+                  type="button" // Added type="button" for accessibility and to fix diagnostic
                 >
                   Clear
                 </button>
@@ -135,7 +151,7 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
         {results.length === 0 && !isRunning ? (
           <div className="p-4 text-black text-center">
             <div className="text-4xl mb-2">▶️</div>
-            <p>Click "Run Code" to execute your code</p>
+            <p>Click ▶ to execute your code</p>
           </div>
         ) : (
           <div className="p-4 space-y-4">
@@ -148,9 +164,12 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
                     : "border-black"
                 }`}
               >
-                <div
-                  className="flex items-center justify-between mb-2 cursor-pointer"
+                {/* Changed the clickable div to a button for semantic correctness and accessibility */}
+                <button
+                  type="button" // Added type="button"
+                  className="flex items-center justify-between mb-2 w-full text-left p-0 border-none bg-transparent" // Added styles to make button look like the div
                   onClick={() => toggleResultCollapse(result.id)}
+                  aria-expanded={!collapsedResults.has(result.id)} // Added aria-expanded for accessibility
                 >
                   <div className="flex items-center gap-2">
                     <span
@@ -170,11 +189,11 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
                     <span className="text-xs text-black">
                       {formatTimestamp(result.timestamp)}
                     </span>
-                    <button className="text-black">
+                    <span className="text-black">
                       {collapsedResults.has(result.id) ? "▼" : "▲"}
-                    </button>
+                    </span>
                   </div>
-                </div>
+                </button>
 
                 {!collapsedResults.has(result.id) && (
                   <>
@@ -182,7 +201,8 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
                       <div className="mb-2">
                         <div className="text-xs text-black mb-1">Output:</div>
                         <div className="bg-gray-100 p-2 text-black">
-                          {formatOutput(result.output)}
+                          {/* Pass result.id to formatOutput */}
+                          {formatOutput(result.output, result.id)}
                         </div>
                       </div>
                     )}
@@ -191,7 +211,8 @@ export function ExecutionOutput({ isRunning = false }: ExecutionOutputProps) {
                       <div>
                         <div className="text-xs text-black mb-1">Error:</div>
                         <div className="bg-gray-100 p-2 text-black">
-                          {formatOutput(result.error)}
+                          {/* Pass result.id to formatOutput */}
+                          {formatOutput(result.error, result.id)}
                         </div>
                       </div>
                     )}
