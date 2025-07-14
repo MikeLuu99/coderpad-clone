@@ -19,7 +19,7 @@ export function Hero() {
           </strong>{" "}
           for building <strong>collaborative apps</strong>.
         </h1>
-        <p className="text-lg text-center text-gray-500 text-balance">
+        <p className="text-lg text-center text-black text-balance">
           Everything on this website automatically syncs!
           <br />
           Open multiple windows to see more bubbles appear.

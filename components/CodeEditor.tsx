@@ -7,8 +7,17 @@ import { useYDoc, useAwareness } from "@y-sweet/react";
 import { editor } from "monaco-editor";
 import * as monaco from "monaco-editor";
 import { getJudge0Service, ExecutionResult, Judge0Service } from "@/lib/judge0";
+import { languageTemplates } from "@/lib/code-templates";
 
-export function CodeEditor() {
+interface CodeEditorProps {
+  isOutputCollapsed?: boolean;
+  toggleOutputCollapse?: () => void;
+}
+
+export function CodeEditor({
+  isOutputCollapsed,
+  toggleOutputCollapse,
+}: CodeEditorProps) {
   const yDoc = useYDoc();
   const awareness = useAwareness();
   const [editorRef, setEditorRef] =
@@ -110,7 +119,7 @@ export function CodeEditor() {
       // Add user ID from awareness for user tracking
       const userId =
         awareness.getLocalState()?.user?.id ||
-        `user-${Math.random().toString(36).substr(2, 9)}`;
+        `user-${Math.random().toString(36).substring(2, 11)}`;
       const resultWithUser = { ...result, userId };
 
       // Add result to Y-Sweet shared array for real-time sync
@@ -120,7 +129,7 @@ export function CodeEditor() {
     } catch (error) {
       const userId =
         awareness.getLocalState()?.user?.id ||
-        `user-${Math.random().toString(36).substr(2, 9)}`;
+        `user-${Math.random().toString(36).substring(2, 11)}`;
       const errorResult: ExecutionResult = {
         id: crypto.randomUUID(),
         code,
@@ -138,7 +147,14 @@ export function CodeEditor() {
     } finally {
       setIsRunning(false);
     }
-  }, [editorRef, isRunning, selectedLanguage, executionResults, judge0Service]);
+  }, [
+    editorRef,
+    isRunning,
+    selectedLanguage,
+    executionResults,
+    judge0Service,
+    awareness,
+  ]);
 
   const handleLanguageChange = useCallback(
     (language: string) => {
@@ -153,6 +169,13 @@ export function CodeEditor() {
         const model = editorRef.getModel();
         if (model) {
           monaco.editor.setModelLanguage(model, language);
+          const currentValue = editorRef.getValue();
+          if (
+            currentValue.trim() === "" ||
+            currentValue.trim() === "// Start typing here..."
+          ) {
+            editorRef.setValue(languageTemplates[language]);
+          }
         }
       }
     },
@@ -171,14 +194,14 @@ export function CodeEditor() {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="border-b border-gray-200 p-4">
+      <div className="border-b border-black p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <h3 className="font-semibold text-gray-800">Code Editor</h3>
+            <h3 className="font-semibold text-black">Code Editor</h3>
             <select
               value={selectedLanguage}
               onChange={(e) => handleLanguageChange(e.target.value)}
-              className="px-3 py-1 border border-gray-300 rounded text-sm"
+              className="px-3 py-1 border border-black text-sm"
             >
               {languageOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -187,27 +210,34 @@ export function CodeEditor() {
               ))}
             </select>
           </div>
-          <button
-            onClick={handleRunCode}
-            disabled={isRunning || !judge0Service}
-            className={`px-4 py-2 rounded font-medium text-sm flex items-center gap-2 ${
-              isRunning || !judge0Service
-                ? "bg-gray-400 text-white cursor-not-allowed"
-                : "bg-green-600 hover:bg-green-700 text-white"
-            }`}
-          >
-            {isRunning ? (
-              <>
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                Running...
-              </>
-            ) : (
-              <>
-                <span>▶️</span>
-                Run Code
-              </>
-            )}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleRunCode}
+              disabled={isRunning || !judge0Service}
+              className={`px-4 py-2 font-medium text-sm flex items-center gap-2 ${
+                isRunning || !judge0Service
+                  ? "bg-gray-400 text-white cursor-not-allowed"
+                  : "bg-black text-white"
+              }`}
+            >
+              {isRunning ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent animate-spin"></div>
+                </>
+              ) : (
+                <>
+                  <span>▶</span>
+                </>
+              )}
+            </button>
+            <button
+              onClick={toggleOutputCollapse}
+              className="px-4 py-2 text-sm bg-black hover:bg-gray-800 text-white border border-white transition-colors"
+            >
+              {isOutputCollapsed ? "Show Output" : "Hide Output"}
+            </button>
+          </div>
         </div>
       </div>
       <div className="flex-1 h-[40rem]">

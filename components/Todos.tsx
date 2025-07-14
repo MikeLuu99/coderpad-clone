@@ -26,7 +26,7 @@ export function Todos() {
             </a>
             .
           </p>
-          <p className="col-start-2 text-xs text-gray-500">
+          <p className="col-start-2 text-xs text-black">
             Every interactive element on this page syncs its state with all
             visitors.
           </p>
@@ -48,7 +48,7 @@ export function Todos() {
             </a>
             .
           </p>
-          <p className="col-start-2 text-xs text-gray-500">
+          <p className="col-start-2 text-xs text-black">
             Y-Sweet's React hooks make it easy to use state that automatically
             syncs.
           </p>
@@ -67,7 +67,7 @@ export function Todos() {
             </a>
             .
           </p>
-          <p className="col-start-2 text-xs text-gray-500">
+          <p className="col-start-2 text-xs text-black">
             Y-Sweet lets you see the state of your document and everyone editing
             it in real time.
           </p>
@@ -90,7 +90,7 @@ export function Todos() {
             </a>
             .
           </p>
-          <p className="col-start-2 text-xs text-gray-500">
+          <p className="col-start-2 text-xs text-black">
             Jamsocket makes it easy to host Y-Sweet services.
           </p>
         </li>
@@ -108,7 +108,7 @@ export function Todos() {
             </a>
             .
           </p>
-          <p className="col-start-2 text-xs text-gray-500">
+          <p className="col-start-2 text-xs text-black">
             Y-Sweet is Jamsocket's service for building collaborative apps using
             Yjs.
           </p>
@@ -123,7 +123,7 @@ export function Todos() {
           <p className="col-start-2 peer-checked:line-through">
             Generate a connection string for your new Y-Sweet service.
           </p>
-          <p className="col-start-2 text-xs text-gray-500">
+          <p className="col-start-2 text-xs text-black">
             A connection string is like an API key that tells your Next.js app
             how to talk to Y-Sweet.
           </p>
@@ -139,7 +139,7 @@ export function Todos() {
             Add the connection string as the environment variable{" "}
             <code>CONNECTION_STRING</code>.
           </p>
-          <p className="col-start-2 text-xs text-gray-500">
+          <p className="col-start-2 text-xs text-black">
             Vercel has documentation on how to add an{" "}
             <a href="https://vercel.com/docs/projects/environment-variables">
               environment variable

@@ -32,11 +32,11 @@ export function ShareLink() {
         type="text"
         readOnly
         value={url}
-        className="w-full px-3 py-2 text-sm text-gray-700 bg-gray-100 border border-gray-300 rounded-lg"
+        className="w-full px-3 py-2 text-sm text-black bg-white border border-black"
       />
       <button
         onClick={handleCopy}
-        className="px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-lg hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+        className="px-4 py-2 text-sm font-medium text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
       >
         {copied ? "Copied!" : "Copy"}
       </button>

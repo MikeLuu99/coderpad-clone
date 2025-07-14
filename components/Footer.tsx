@@ -3,26 +3,26 @@ export function Footer() {
     <footer className="p-8">
       <ul className="flex justify-center gap-8">
         <li>
-          <a className="text-xs text-gray-500" href="https://jamsocket.com">
+          <a className="text-xs text-black" href="https://jamsocket.com">
             <span>Jamsocket</span>
           </a>
         </li>
         <li>
           <a
-            className="text-xs text-gray-500"
+            className="text-xs text-black"
             href="https://docs.jamsocket.com/y-sweet/"
           >
             <span>Y-Sweet</span>
           </a>
         </li>
         <li>
-          <a className="text-xs text-gray-500" href="https://docs.yjs.dev">
+          <a className="text-xs text-black" href="https://docs.yjs.dev">
             <span>Yjs</span>
           </a>
         </li>
         <li>
           <a
-            className="text-xs text-gray-500"
+            className="text-xs text-black"
             href="https://github.com/jamsocket/y-sweet"
           >
             <span>Source</span>
@@ -30,7 +30,7 @@ export function Footer() {
         </li>
         <li>
           <a
-            className="text-xs text-gray-500"
+            className="text-xs text-black"
             href="https://discord.gg/RFrDbMVKxv"
           >
             <span>Get Help</span>

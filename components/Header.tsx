@@ -14,7 +14,7 @@ export default function Header(props: HeaderProps) {
       <ShareLink />
       <div className="flex">
         <a
-          className="text-sm flex gap-2 items-center px-3 py-2 rounded-lg bg-pink-950 text-white border transition-all "
+          className="text-sm flex gap-2 items-center px-3 py-2 bg-black text-white border transition-all "
           href={githubLink}
         >
           <svg

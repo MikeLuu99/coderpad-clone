@@ -18,11 +18,11 @@ export function Presence() {
     <div className="inline-block relative mx-auto pb-[102px]">
       <ul className="flex justify-center items-center gap-2">
         <li
-          className="flex rounded-full border border-dashed p-0.5"
+          className="flex border border-dashed p-0.5"
           style={{ borderColor: self.color }}
         >
           <label
-            className="block appearance-none w-6 h-6 rounded-full"
+            className="block appearance-none w-6 h-6"
             style={{ backgroundColor: self.color }}
           >
             <input
@@ -36,7 +36,7 @@ export function Presence() {
         {others.map(([id, peer]) => (
           <li
             key={id}
-            className="rounded-full w-6 h-6"
+            className="w-6 h-6"
             style={{ backgroundColor: peer.color }}
           ></li>
         ))}
