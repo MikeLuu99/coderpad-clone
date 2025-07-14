@@ -3,10 +3,7 @@ import { YDocProvider } from "@y-sweet/react";
 
 import { App } from "@/components/App";
 
-const manager = new DocumentManager(
-  process.env.CONNECTION_STRING ||
-    "yss://TUQMTe52WRHrLJKw.DFLYmxplphSr92JyJJlHqDufJcKOze@api.jamsocket.com/v2/y-sweet/ainoluu9904/color-grid/",
-);
+const manager = new DocumentManager(process.env.CONNECTION_STRING || "");
 
 export default async function Home({
   searchParams,
