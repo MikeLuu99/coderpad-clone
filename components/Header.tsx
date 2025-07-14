@@ -1,5 +1,6 @@
 "use client";
 import Title from "@/components/Title";
+import { ShareLink } from "./ShareLink";
 
 interface HeaderProps {
   title: string;
@@ -10,6 +11,7 @@ export default function Header(props: HeaderProps) {
   return (
     <div className="flex flex-col md:flex-row justify-between md:items-center gap-y-2">
       <Title>{title}</Title>
+      <ShareLink />
       <div className="flex">
         <a
           className="text-sm flex gap-2 items-center px-3 py-2 rounded-lg bg-pink-950 text-white border transition-all "

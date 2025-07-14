@@ -1,5 +1,6 @@
 import { DocumentManager } from "@y-sweet/sdk";
 import { YDocProvider } from "@y-sweet/react";
+import { redirect } from "next/navigation";
 
 import { App } from "@/components/App";
 
@@ -8,10 +9,13 @@ const manager = new DocumentManager(process.env.CONNECTION_STRING || "");
 export default async function Home({
   searchParams,
 }: {
-  searchParams: Promise<{ doc: string }>;
+  searchParams: { doc: string };
 }) {
-  const params = await searchParams;
-  const docId = params.doc ?? crypto.randomUUID();
+  const docId = searchParams.doc;
+
+  if (!docId) {
+    redirect(`/?doc=${crypto.randomUUID()}`);
+  }
 
   async function getClientToken() {
     "use server";
