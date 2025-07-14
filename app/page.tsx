@@ -9,9 +9,10 @@ const manager = new DocumentManager(process.env.CONNECTION_STRING || "");
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { doc: string };
+  searchParams: Promise<{ doc: string }>;
 }) {
-  const docId = searchParams.doc;
+  const params = await searchParams;
+  const docId = params.doc;
 
   if (!docId) {
     redirect(`/?doc=${crypto.randomUUID()}`);
@@ -30,3 +31,4 @@ export default async function Home({
     </YDocProvider>
   );
 }
+
