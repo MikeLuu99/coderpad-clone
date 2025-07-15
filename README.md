@@ -2,6 +2,9 @@
 
 This is a collaborative code editor built with Next.js, TypeScript, and y-sweet for real-time synchronization. It allows multiple users to code together in a shared environment.
 
+## UI
+![Coderpad Clone Screenshot](/screenshot.png)
+
 ## Tech Stack
 
 *   **Framework:** [Next.js](https://nextjs.org/)
