@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  yjs: ^13.6.27
+
 importers:
 
   .:
@@ -33,7 +36,7 @@ importers:
         specifier: ^0.1.6
         version: 0.1.6(monaco-editor@0.52.2)(yjs@13.6.27)
       yjs:
-        specifier: ^13.6.20
+        specifier: ^13.6.27
         version: 13.6.27
     devDependencies:
       '@types/node':
@@ -331,13 +334,13 @@ packages:
   '@y-sweet/client@0.6.4':
     resolution: {integrity: sha512-dRfnMulK9HJWzm1BnmViZP93FZ/RrXlIN3Uke3f9iIDDDFLPQs5YBDWZ4dc24Hd8/BnX/Xe/uZzDJcAvENx3fw==}
     peerDependencies:
-      yjs: ^13.0.0
+      yjs: ^13.6.27
 
   '@y-sweet/react@0.6.4':
     resolution: {integrity: sha512-FotyT2MN+wicBl3tHm7CrkJUQu2YFIkOQ7w6DAQTVs6/o+/8kuL7a2svKL15mMAR1TVary1GSCASyRix9VqUCA==}
     peerDependencies:
       react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
-      yjs: ^13
+      yjs: ^13.6.27
 
   '@y-sweet/sdk@0.6.4':
     resolution: {integrity: sha512-px51qSbckGrucN83BM9jJyaBLLdYFT+zhvsootK+WW9t/9rQSQHQX54gdtF6M1kUktA4jOGfSiAXDzuTY0zYVg==}
@@ -881,13 +884,13 @@ packages:
     engines: {node: '>=12.0.0', npm: '>=6.0.0'}
     peerDependencies:
       monaco-editor: '>=0.20.0'
-      yjs: ^13.3.1
+      yjs: ^13.6.27
 
   y-protocols@1.0.6:
     resolution: {integrity: sha512-vHRF2L6iT3rwj1jub/K5tYcTT/mEYDUppgNPXwp8fmLpui9f7Yeq3OEtTLVF012j39QnV+KEQpNqoN7CWU7Y9Q==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     peerDependencies:
-      yjs: ^13.0.0
+      yjs: ^13.6.27
 
   y-sweet@0.6.4:
     resolution: {integrity: sha512-Ev0kWOhQCANQ5CTEKYI8IqBY+FbuUdjW5XqtkTN0ci9XUxj+u7OjzyH+DcHyvk/IPMR/TVgqHQo12QElkObvkA==}
